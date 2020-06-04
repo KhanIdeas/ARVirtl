@@ -59,7 +59,9 @@ class ViewController: UIViewController, VitloVCDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = .red
         
-        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        // Create a simple button for opening the ARScreen
+        
+         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
          button.backgroundColor = .green
          button.setTitle("Test Button", for: .normal)
          button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
@@ -69,72 +71,82 @@ class ViewController: UIViewController, VitloVCDelegate {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        
+    
+        // Start updateing Location
          LocationManager.sharedInstance.start()
     }
     
     @objc func buttonAction(sender: UIButton!) {
-        let prop:VirtloProperty = VirtloProperty()
-               prop.lat = (LocationManager.sharedInstance.latestLocation?.coordinate.latitude)! + 0.000001
-               prop.lng = (LocationManager.sharedInstance.latestLocation?.coordinate.longitude)! + 0.000001
-               prop.name = "Apartment"
-               prop.category_color = "#00ADFA"
-               prop.category_id = 1000
-               tableData.append(prop)
-               serverPlaces.append(prop)
-                let prop4:VirtloProperty = VirtloProperty()
-               prop4.lat = 40.212314
-                      prop4.lng = 44.489013
-                      prop4.name = "erkrord Ket"
-                      prop4.category_color = "#00ADFA"
-              // prop4.logo = "https://virtlo.com//uploads/places/39/39/5cioemhphv9mnm571fcsr2kya.png"
-                prop4.category_id = 1000
-                      tableData.append(prop4)
-                      serverPlaces.append(prop4)
-               
-               let prop2:VirtloProperty = VirtloProperty()
-               prop2.lat = 40.222314
-                      prop2.lng = 44.479013
-                      prop2.name = "errord Ket"
-                      prop2.category_color = "#0037CE"
-                      prop2.rand_position = 1300
-                      prop2.category = "Man-made"
-                      prop2.parent_category_title = "Nature"
-                     
-                      prop2.category_id = 1000
-                      prop2.opening_hours = "Mo-Su 09:00 - 18:00"
-               
-             
-                      tableData.append(prop2)
-                      serverPlaces.append(prop2)
-               
-                let prop3:VirtloProperty = VirtloProperty()
-               prop3.lat = 40.252314
-                      prop3.lng = 44.499013
-                      prop3.name = "chorord Ket"
-                      prop3.category_color = "#0037CE"
-                      prop3.opening_hours = "Mo-Su 09:00 - 18:00"
-                      prop3.street = "22 Vagharshyan, Yerevan"
-                       prop3.category_id = 1000
-                      tableData.append(prop3)
-                      serverPlaces.append(prop3)
-        
-        let bundle = Bundle(for: VirtloVC.self)
-               let storyboard = UIStoryboard(name: "Storyboard", bundle: bundle)
-        let controller = storyboard.instantiateViewController(withIdentifier: "VirtloVC") as! VirtloVC
-        //controller.tableData = tableData
-        //controller.delegate = self
-        controller.serverPlaces = serverPlaces
-        controller.modalPresentationStyle = .overFullScreen
+    
+       //Add several points on map
+    
+       let prop:VirtloProperty = VirtloProperty()
+       prop.lat = (LocationManager.sharedInstance.latestLocation?.coordinate.latitude)! + 0.000001
+       prop.lng = (LocationManager.sharedInstance.latestLocation?.coordinate.longitude)! + 0.000001
+       prop.name = "Apartment"
+       prop.category_color = "#00ADFA"
+       prop.category_id = 1000
+       tableData.append(prop)
+       serverPlaces.append(prop)
+
+
+       let prop4:VirtloProperty = VirtloProperty()
+       prop4.lat = 40.212314
+       prop4.lng = 44.489013
+       prop4.name = "erkrord Ket"
+       prop4.category_color = "#00ADFA"
+      // prop4.logo = "https://virtlo.com//uploads/places/39/39/5cioemhphv9mnm571fcsr2kya.png"
+       prop4.category_id = 1000
+       tableData.append(prop4)
+       serverPlaces.append(prop4)
+
+       let prop2:VirtloProperty = VirtloProperty()
+       prop2.lat = 40.222314
+       prop2.lng = 44.479013
+       prop2.name = "errord Ket"
+       prop2.category_color = "#0037CE"
+       prop2.rand_position = 1300
+       prop2.category = "Man-made"
+       prop2.parent_category_title = "Nature"
+       prop2.category_id = 1000
+       prop2.opening_hours = "Mo-Su 09:00 - 18:00"
+       tableData.append(prop2)
+       serverPlaces.append(prop2)
+
+       let prop3:VirtloProperty = VirtloProperty()
+       prop3.lat = 40.252314
+       prop3.lng = 44.499013
+       prop3.name = "chorord Ket"
+       prop3.category_color = "#0037CE"
+       prop3.opening_hours = "Mo-Su 09:00 - 18:00"
+       prop3.street = "22 Vagharshyan, Yerevan"
+       prop3.category_id = 1000
+       tableData.append(prop3)
+       serverPlaces.append(prop3)
+       
+       //Open the AR Screen
+
+       let bundle = Bundle(for: VirtloVC.self)
+       let storyboard = UIStoryboard(name: "Storyboard", bundle: bundle)
+       let controller = storyboard.instantiateViewController(withIdentifier: "VirtloVC") as! VirtloVC
+       
+       // If you want to use custom view Controller , uncoment the above line
+       
+       //controller.delegate = self
+       controller.serverPlaces = serverPlaces
+       controller.modalPresentationStyle = .overFullScreen
+       
+      // If you want to use custom Tooltip uncoment this line, create a view CustomToolTip inherited from TooltipView and with xib file
         
        // controller.isCustomToolTipUsed = true
+       
+     //  If you want to give custom hints set all the hint parameters as above
        
 //       controller.firstHintTitle = "firstHintTitle"
 //       controller.firstHintDescription1 = "firstHintDescription1"
 //       controller.firstHintDescription2 = "firstHintDescription2"
 //       controller.firstHintImage = UIImage(named:"testVirtlo")
-//       
-//       
+//              
 //       controller.secondHintTitle = "secondHintTitle"
 //       controller.secondHintDescription = "secondHintDescription"
 //       controller.secondHintTapOrSwipe = "secondHintTapOrSwipe"
@@ -145,10 +157,12 @@ class ViewController: UIViewController, VitloVCDelegate {
 //       controller.listHintDescription1 = "listHintDescription1"
 //       controller.listHintDescription2 = "listHintDescription2"
 //       controller.keepItStright = "keepItStright"
-//    controller.listHintImage = UIImage(named:"testVirtlo")
+//       controller.listHintImage = UIImage(named:"testVirtlo")
         
         self.present(controller, animated: true, completion: nil)
     }
+    
+    // if you have added this :  controller.delegate = self you need to listen to openElementDetails() on click on tooltip
     
     func openElementDetails(virtloProperty:VirtloProperty)
     {
